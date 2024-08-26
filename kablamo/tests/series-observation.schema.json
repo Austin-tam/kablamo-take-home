@@ -1,0 +1,23 @@
+{
+    "terms": {
+        "url": "string"
+    },
+    "seriesDetail": {
+        "FXCADAUD": {
+            "label": "CAD/AUD",
+            "description": "string",
+            "dimension": {
+                "key": "string",
+                "name": "string"
+            }
+        }
+    },
+    "observations": [
+        {
+            "d": "string",
+            "FXCADAUD": {
+                "v": "float"
+            }
+        }
+    ]
+}

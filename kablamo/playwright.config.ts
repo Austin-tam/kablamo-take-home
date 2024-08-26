@@ -23,6 +23,7 @@ export default defineConfig({
   use: {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    baseURL: 'https://www.bankofcanada.ca/valet/'
   },
 
   /* Configure projects for major browsers */
@@ -42,5 +43,4 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
   ],
-
 });
