@@ -1,66 +1,97 @@
 {
-    "type": "object",
-    "required": [],
-    "properties": {
-      "terms": {
-        "type": "object",
-        "required": [],
-        "properties": {
-          "url": {
-            "type": "string"
-          }
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "terms": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
         }
       },
-      "seriesDetail": {
-        "type": "object",
-        "required": [],
-        "properties": {
-          "FXCADAUD": {
-            "type": "object",
-            "required": [],
-            "properties": {
-              "label": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              },
-              "dimension": {
-                "type": "object",
-                "required": [],
-                "properties": {
-                  "key": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "observations": {
-        "type": "array",
-        "items": {
+      "required": [
+        "url"
+      ]
+    },
+    "seriesDetail": {
+      "type": "object",
+      "properties": {
+        "FXCADAUD": {
           "type": "object",
-          "required": [],
           "properties": {
-            "d": {
+            "label": {
               "type": "string"
             },
-            "FXCADAUD": {
+            "description": {
+              "type": "string"
+            },
+            "dimension": {
               "type": "object",
-              "required": [],
               "properties": {
-                "v": {
+                "key": {
+                  "type": "string"
+                },
+                "name": {
                   "type": "string"
                 }
-              }
+              },
+              "required": [
+                "key",
+                "name"
+              ]
             }
-          }
+          },
+          "required": [
+            "label",
+            "description",
+            "dimension"
+          ]
         }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "FXCADAUD"
+          ]
+        },
+        {
+          "required": [
+            "FXUSDCAD"
+          ]
+        },
+        {
+          "required": [
+            "FXCADJPY"
+          ]
+        }
+      ]
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "d": {
+            "type": "string"
+          },
+          "FXCADAUD": {
+            "type": "object",
+            "properties": {
+              "v": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "v"
+            ]
+          }
+        },
+        "required": [
+          "d",
+          "FXCADAUD"
+        ]
       }
     }
   }
+}

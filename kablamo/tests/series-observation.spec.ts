@@ -11,10 +11,11 @@ test.describe('Series by observation tests', () => {
   ].forEach(({convertFrom, convertTo}) => {
     test(`should successfully retrieve Forex conversion rate "${convertFrom} to ${convertTo}" for the recent 10 weeks using observations by Series`, async ({ request }) => {
       const response = await (request.get(`observations/FX${convertFrom}${convertTo}/json?recent_weeks=10`))
-      const validate = ajv.validate(require('./series-observation-success.schema.json'), response.body())
+      const validate = ajv.compile(require('./series-observation-success.schema.json'))
+      const validRes = validate(response.json())
 
       expect(response.status()).toEqual(200)
-      expect(validate).toBe(true)
+      expect(validRes).toBe(true)
     })
   });
 
@@ -31,6 +32,14 @@ test.describe('Series by observation tests', () => {
     const validate = ajv.validate(require('./series-observation-error.schema.json'), response.body())
 
     expect(response.status()).toEqual(400)
+    expect(validate).toBe(true)
+  })
+
+  test('should return error if API endpoint url is incorrect', async ({ request }) => {
+    const response = await (request.get('observations'))
+    const validate = ajv.validate(require('./series-observation-error.schema.json'), response.body())
+
+    expect(response.status()).toEqual(404)
     expect(validate).toBe(true)
   })
 })
