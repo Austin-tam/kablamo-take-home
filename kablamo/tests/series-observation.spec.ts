@@ -21,25 +21,28 @@ test.describe('Series by observation tests', () => {
 
   test('should return error if Forex series not found or not available', async ({ request }) => {
     const response = await (request.get('observations/FXUSDAUD/json?recent_weeks=10'))
-    const validate = ajv.validate(require('./series-observation-error.schema.json'), response.body())
+    const validate = ajv.compile(require('./series-observation-error.schema.json'))
+    const validRes = validate(response.json())
 
     expect(response.status()).toEqual(404)
-    expect(validate).toBe(true)
+    expect(validRes).toBe(true)
   });
 
   test('should return error if recent weeks is not numeric', async ({ request }) => {
     const response = await (request.get('observations/FXCADAUD/json?recent_weeks=a'))
-    const validate = ajv.validate(require('./series-observation-error.schema.json'), response.body())
+    const validate = ajv.compile(require('./series-observation-error.schema.json'))
+    const validRes = validate(response.json())
 
     expect(response.status()).toEqual(400)
-    expect(validate).toBe(true)
+    expect(validRes).toBe(true)
   })
 
   test('should return error if API endpoint url is incorrect', async ({ request }) => {
     const response = await (request.get('observations'))
-    const validate = ajv.validate(require('./series-observation-error.schema.json'), response.body())
+    const validate = ajv.compile(require('./series-observation-error.schema.json'))
+    const validRes = validate(response.json())
 
     expect(response.status()).toEqual(404)
-    expect(validate).toBe(true)
+    expect(validRes).toBe(true)
   })
 })
